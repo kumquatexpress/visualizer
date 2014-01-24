@@ -17,7 +17,7 @@ function analyze_track(){
             //got the analysis back, start the real work.
             analysis = analyzer.get_number_info(t);
             $("#runinfo").html("Done!");
-            $('#showinfo').html("hello" + analysis);
+            document.body.appendChild(prettyPrint(analysis));
         }
     });
 }
@@ -39,9 +39,10 @@ analyzer = {
         analyzer.merge_notes(tatums);
 
         var ret = new Object();
-        ret.bpm = data.tempo;
-        ret.key = data.key;
+        ret.bpm = data.track.tempo;
+        ret.key = data.track.key;
         ret.title = track.title;
+        ret.notes = tatums;
         return ret;
     },
     merge_notes: function(data){
