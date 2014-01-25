@@ -1,0 +1,35 @@
+.hex {
+    float: left;
+    margin-right: -52px;
+    margin-bottom: -100px;
+}
+.hex .left {
+    float: left;
+    width: 0;
+    border-right: 60px solid #ECECEE;
+    border-top: 104px solid transparent;
+    border-bottom: 104px solid transparent;
+}
+.hex .middle {
+    float: left;
+    width: 120px;
+    height: 208px;
+    background: #ECECEE;
+}
+.hex .right {
+    float: left;
+    width: 0;
+    border-left: 60px solid #ECECEE;
+    border-top: 104px solid transparent;
+    border-bottom: 104px solid transparent;
+}
+.hex-row {
+    clear: left;
+}
+.hex.even {
+    margin-top: 106px;
+}
+.hex-holder {
+    margin: 0 auto;
+    width: 800px;
+}
