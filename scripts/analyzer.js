@@ -9,7 +9,7 @@ var player = remixer.getPlayer();
 
 var analysis;
 var AVG_LOUDNESS;
-var THRESHHOLD = 1.6;
+var THRESHHOLD = 4.5;
 
 //let's try this with the soundcloud integration
 function analyze_track(sound_url){
