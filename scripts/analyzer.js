@@ -1,11 +1,14 @@
-var apiKey = constants.api_key
-var sc_client_id = constants.soundcloud_id
+var apiKey = constants.api_key;
+var sc_client_id = constants.soundcloud_id;
 
 var context = new webkitAudioContext();
 var remixer = createJRemixer(context, $, apiKey);
+var player = remixer.getPlayer();
 
-var soundURL = "https://soundcloud.com/brenxtune/love-lingerie";
+var soundURL = "https://soundcloud.com/sonyclassical-switzerland/sc-03-piano-concerto-no-1-in-e";
 var analysis;
+var AVG_LOUDNESS;
+var THRESHHOLD = 1.6;
 
 //let's try this with the soundcloud integration
 function analyze_track(){
@@ -13,10 +16,15 @@ function analyze_track(){
     remixer.remixTrackBySoundCloudURL(soundURL, sc_client_id, function(t, percent){
         $("#runinfo").html(percent + "% loading...");
         if(t.status == 'ok'){
+            AVG_LOUDNESS = t.analysis.track.loudness;
             //got the analysis back, start the real work.
             analysis = analyzer.get_number_info(t);
             $("#runinfo").html("Done!");
-            document.body.appendChild(prettyPrint(analysis));
+            
+            //document.body.appendChild(prettyPrint(analysis));
+
+            player.play(0, t.analysis.beats);
+            start_visualization(analysis.notes);
         }
     });
 }
@@ -25,35 +33,35 @@ function analyze_track(){
 {
     title: url of the soundcloud song,
     bpm: integer,
-    key: integer 1-12 1 = C, 2 = C#, ..., 12 = B,
+    key: integer 0-11 0 = C, 1 = C#, ..., 11 = B,
     notes: [array of arrays [x, y], where x is a float
     representing the length of the note, 1.0 = one beat, 0.5 = half beat, ...
-    and y is 1-12, 1 = C, 2 = C#, ..., 12 = B }
+    and y is 0-11, 0 = C, 1 = C#, ..., 11 = B }.  y = 12 means a rest.
 */
 
 analyzer = {
     get_number_info: function(track){
         var data = track.analysis;
-        var tatums = data.tatums;
+        var segments = data.segments;
 
         var ret = new Object();
         ret.bpm = data.track.tempo;
         ret.key = data.track.key;
         ret.title = track.title;
-        ret.notes = analyzer.merge_notes(tatums);
+        ret.notes = analyzer.merge_notes(segments);
         return ret;
     },
-    merge_notes: function(tatums){
+    merge_notes: function(segments){
         var ret_notes = new Array();
-        rhythms = _.map(tatums, function(t){
-            if(t.oseg){
-                return t.oseg["duration"];
+        rhythms = _.map(segments, function(t){
+            if(t){
+                return t["duration"];
             }
         });
-        notes = _.map(tatums, function(t){ 
-            if(t.oseg){
-                return _.indexOf(t.oseg.pitches, _.max(t.oseg.pitches));
-            }
+        notes = _.map(segments, function(t){ 
+            if(t.loudness_start > AVG_LOUDNESS * THRESHHOLD){
+                return _.indexOf(t.pitches, _.max(t.pitches));
+            } else { return 12; }
         });
 
         //here we merge the like notes that are consecutive
@@ -73,8 +81,9 @@ analyzer = {
                 current_rhythm = rhythm;
             }
         }
+        ret_notes.push([current_rhythm, current_note]);
         //reverse the array since notes are from end to start right now
-        return ret_notes.reverse();
+        return ret_notes;
     }
 }
 //standin for the url that will come from an element later
