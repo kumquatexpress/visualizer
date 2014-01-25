@@ -1,5 +1,5 @@
 <head>
-    <title>Hello there</title>
+    <title>The Visualizer</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="scripts/remix.js"></script>
     <script src="scripts/secret_keys.js"></script>
@@ -10,8 +10,12 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/hexagons.css">
 </head>
 <body>
-    <button id="run">Run</button>
-    <div id="runinfo"></div>
+    <div id="input-form">
+        <button id="run">Run</button>
+        <input type="text" id="sound_url" placeholder="Enter SoundCloud URL Here" size="60"/>
+        <div id="runinfo"></div>
+    </div>
+
     <div class="hex-holder">
         <div class="hex-row">
             <div class="hex C"><div class="left C"></div><div class="middle C"></div><div class="right C"></div></div>
