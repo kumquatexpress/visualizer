@@ -26,9 +26,9 @@ function analyze_track(){
     title: url of the soundcloud song,
     bpm: integer,
     key: integer 1-12 1 = C, 2 = C#, ..., 12 = B,
-    notes: [array of arrays [x, y], where x is 1-12, 1 = C, 2 = C#, ..., 12 = B and y is a float
-    representing the length of the note, 1.0 = one beat, 0.5 = half beat, ...],
-}
+    notes: [array of arrays [x, y], where x is a float
+    representing the length of the note, 1.0 = one beat, 0.5 = half beat, ...
+    and y is 1-12, 1 = C, 2 = C#, ..., 12 = B }
 */
 
 analyzer = {
@@ -44,6 +44,7 @@ analyzer = {
         return ret;
     },
     merge_notes: function(tatums){
+        var ret_notes = new Array();
         rhythms = _.map(tatums, function(t){
             if(t.oseg){
                 return t.oseg["duration"];
@@ -55,7 +56,25 @@ analyzer = {
             }
         });
 
-        return _.zip(rhythms, notes);
+        //here we merge the like notes that are consecutive
+        var current_note = -1;
+        var current_rhythm = 0;
+        var note;
+        var rhythm;
+        var tuples = _.zip(rhythms, notes);
+        for(var i = 0; i < tuples.length; i++){
+            rhythm = tuples[i][0];
+            note = tuples[i][1];
+            if(current_note == note){
+                current_rhythm += rhythm;
+            } else {
+                ret_notes.push([current_rhythm, current_note]);
+                current_note = note;
+                current_rhythm = rhythm;
+            }
+        }
+        //reverse the array since notes are from end to start right now
+        return ret_notes.reverse();
     }
 }
 //standin for the url that will come from an element later
