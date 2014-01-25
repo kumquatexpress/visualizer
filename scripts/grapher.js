@@ -17,18 +17,27 @@ NOTE_DICTIONARY = {
 
 
 $(document).ready(function(){
+    center_hexagons();
+
     $("#run").click(function(){
         analyze_track($("#sound_url").val());
     });
 
     $(window).resize(function(){
-        var height = $(window).innerHeight();
-        var width = $(window).innerWidth();
-        $(".hex-holder").css("top", height/2+"px")
-            .css("left", width/2+"px");
+        center_hexagons();
     });
 
 });
+
+function center_hexagons(){
+    var height = $(window).innerHeight() - 800;
+    if(height < 0){
+        height = 0;
+    }
+    var width = $(window).innerWidth();
+    $(".hex-holder").css("margin-top", height/2+"px")
+        .css("left", width/2+"px");
+}
 
 function start_visualization(analysis){
     var current_time = 0;
