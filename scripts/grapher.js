@@ -37,6 +37,7 @@ function center_hexagons(){
     var width = $(window).innerWidth();
     $(".hex-holder").css("margin-top", height/2+"px")
         .css("left", width/2+"px");
+    $(".credits").css("left", (width/2 - 248) +"px");
 }
 
 function start_visualization(analysis){

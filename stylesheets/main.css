@@ -1,0 +1,46 @@
+.credits {
+    position:fixed;
+    top:95%;
+    margin:0 auto;
+    text-align: center;
+}
+body.raleway {
+    font: 14px/21px 'Raleway', 'Raleway', sans-serif;
+    color: rgb(150,150,150);
+    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+    -webkit-text-size-adjust: 100%;
+}
+input, button, select {
+    font: 13px/20px 'Raleway', 'Raleway', sans-serif;
+    color: rgb(15,12,11);
+    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+    -webkit-text-size-adjust: 100%;
+}
+progress::-webkit-progress-bar{  
+    background-color: #5c9dff;  
+    border: 0;  
+    height: 18px;
+    width: 100%;  
+    border-radius: 9px;  
+}
+progress::-webkit-progress-value {
+    background-color: #ff944d;  
+    border: 0;  
+    height: 18px;
+    width: 100%;  
+    border-radius: 9px;  
+}
+progress {
+    background-color: #5c9dff;  
+    border: 0;  
+    height: 18px;
+    width: 20%;  
+    border-radius: 9px;  
+}
+progress::-moz-progress-bar {
+    background-color: #5c9dff;
+    border: 0;
+    height: 18px;
+    width: 20%;
+    border-radius: 9px;
+}

@@ -7,13 +7,17 @@
     <script src="scripts/grapher.js"></script>
     <script src="scripts/prettyprint.js"></script>
     <script src="scripts/underscore.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheets/hexagons.css">
+    
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+    
+    <link href='stylesheets/main.css' rel='stylesheet' type='text/css'>
+    <link href="stylesheets/hexagons.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <div id="input-form">
+<body class="raleway">
+    <div id="input-form" class="peripherals">
         <button id="run">Run</button>
-        <input type="text" id="sound_url" placeholder="Enter SoundCloud URL Here" size="60"/>
-        <div id="runinfo"></div>
+        <input type="text" id="sound_url" placeholder="Enter SoundCloud URL Here" size="60"/> </br>
+        <progress id="runinfo" value="0" max="100"></progress>
     </div>
 
     <div class="hex-holder">
@@ -36,4 +40,8 @@
             <div class="hex even B"><div class="left B"></div><div class="middle B"></div><div class="right B"></div></div>
         </div>
     </div>
+    <div class="credits peripherals">
+        Boyang Niu 2014&#169; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Credits for the hexagon design go to James Tauber.
+    </div>
+
 </body>

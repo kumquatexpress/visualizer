@@ -15,7 +15,7 @@ var THRESHHOLD = 1.6;
 function analyze_track(sound_url){
     var analysis = new Array();
     remixer.remixTrackBySoundCloudURL(sound_url, sc_client_id, function(t, percent){
-        $("#runinfo").html(percent + "% loading...");
+        $("#runinfo").val(percent);
         if(t.status == 'ok'){
             AVG_LOUDNESS = t.analysis.track.loudness;
             //got the analysis back, start the real work.
@@ -23,7 +23,7 @@ function analyze_track(sound_url){
 
             //hide the input form when done
             $("#runinfo").html("Done!");
-            $("#input-form").hide(1000, 'swing');
+            $(".peripherals").hide(1000, 'swing');
             
             //document.body.appendChild(prettyPrint(analysis));
 
