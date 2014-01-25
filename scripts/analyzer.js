@@ -4,8 +4,7 @@ var sc_client_id = constants.soundcloud_id
 var context = new webkitAudioContext();
 var remixer = createJRemixer(context, $, apiKey);
 
-//standin for the url that will come from an element later
-var soundURL = "https://soundcloud.com/jrhodespianist/chopin-prelude-no-4-in-e-minor";
+var soundURL = "https://soundcloud.com/brenxtune/love-lingerie";
 var analysis;
 
 //let's try this with the soundcloud integration
@@ -36,16 +35,27 @@ analyzer = {
     get_number_info: function(track){
         var data = track.analysis;
         var tatums = data.tatums;
-        analyzer.merge_notes(tatums);
 
         var ret = new Object();
         ret.bpm = data.track.tempo;
         ret.key = data.track.key;
         ret.title = track.title;
-        ret.notes = tatums;
+        ret.notes = analyzer.merge_notes(tatums);
         return ret;
     },
-    merge_notes: function(data){
+    merge_notes: function(tatums){
+        rhythms = _.map(tatums, function(t){
+            if(t.oseg){
+                return t.oseg["duration"];
+            }
+        });
+        notes = _.map(tatums, function(t){ 
+            if(t.oseg){
+                return _.indexOf(t.oseg.pitches, _.max(t.oseg.pitches));
+            }
+        });
 
+        return _.zip(rhythms, notes);
     }
 }
+//standin for the url that will come from an element later
