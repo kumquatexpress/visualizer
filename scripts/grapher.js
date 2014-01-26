@@ -65,13 +65,13 @@ function turn_off_hexagon(note){
 }
 
 function pick_color_amplitude(loudness){
-    if(loudness < 0.7){
+    if(loudness < 0.4){
         return "#CCFFCC";
     }
-    if(loudness < 0.8){
+    if(loudness < 0.6){
         return "#FFFF70";
     }
-    if(loudness < 0.9){
+    if(loudness < 0.8){
         return "#4775FF";
     }
     if(loudness < 1.0){

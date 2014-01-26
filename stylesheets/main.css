@@ -4,6 +4,13 @@
     margin:0 auto;
     text-align: center;
 }
+#about {
+    margin-right: 20%;
+    margin-left: 20%;
+    text-align:center;
+    color:rgb(20,20,20);
+    font: 16px/22px 'Raleway', 'Raleway', sans-serif;
+}
 body.raleway {
     font: 14px/21px 'Raleway', 'Raleway', sans-serif;
     color: rgb(150,150,150);
