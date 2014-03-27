@@ -28,7 +28,9 @@ function createJRemixer(context, jquery, apiKey) {
                             if (data.query.results != null) {
                                 track.analysis = data.query.results.json;
                                 console.log("Analysis obtained...");
-                                remixer.remixTrack(track, trackURL, callback);   
+                                
+                                callback(track, 100);
+                                //remixer.remixTrack(track, trackURL, callback);   
                             }
                             else {
                                 retryCount = retryCount - 1;

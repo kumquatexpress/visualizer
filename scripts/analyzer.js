@@ -16,7 +16,7 @@ function analyze_track(sound_url){
     var analysis = new Array();
     remixer.remixTrackBySoundCloudURL(sound_url, sc_client_id, function(t, percent){
         $("#runinfo").val(percent);
-        if(t.status == 'ok'){
+        if(t.status == 'complete'){
             AVG_LOUDNESS = t.analysis.track.loudness;
             //got the analysis back, start the real work.
             analysis = analyzer.get_number_info(t);
@@ -66,7 +66,13 @@ analyzer = {
         });
         notes = _.map(segments, function(t){ 
             if(t.loudness_start > AVG_LOUDNESS * THRESHHOLD){
-                return _.indexOf(t.pitches, _.max(t.pitches));
+                var pitches = [];
+                _.each(
+                    _.filter(t.pitches, function(x){ return x > 0.4; }),
+                    function(a){ pitches.add(_.indexOf(t.pitches, a)); }
+                );
+                return pitches;
+                ;
             } else { return 12; }
         });
         loudness = _.map(segments, function(t){
